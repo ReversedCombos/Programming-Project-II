@@ -33,9 +33,18 @@ int main()
         getline(cin, name);
 
         //Promts the user for the number of months the data will be collected
-        cout << endl << "How many months of data will be entered? : ";
+        cout << endl << "How many months of data will be entered? (1-12): ";
         //Outputs to numMonths
         cin >> numMonths;
+
+        while (numMonths < 1 || numMonths > 12 || cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Please enter a number between 1-12! : ";
+            cin >> numMonths;
+            cout << endl;
+        }
 
         if (numMonths < 12)
         {
@@ -72,6 +81,15 @@ int main()
         //If error flag appears then call reset program
         cin >> TDUName;
 
+        while (TDUName < 1 || TDUName > 5 || cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Please enter a number between 1-5! : ";
+            cin >> TDUName;
+            cout << endl;
+        }
+
         switch (TDUName)
         {
             case 1:
@@ -101,6 +119,15 @@ int main()
             cout << endl << "Enter the kWH for month " << i + 1<< " : ";
 
             cin >> monthlyKWH[i];
+
+            while (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Please enter a number! : ";
+                cin >> monthlyKWH[i];
+                cout << endl;
+            }
         }
 
         //Reciept
@@ -117,11 +144,11 @@ int main()
             }
             else if (monthlyKWH[i] > 1200 && monthlyKWH[i] <= 2000)
             {
-                currentTXU = monthlyKWH[i] * 0.037 - 15;
+                currentTXU = (1200 * 0.073) + (monthlyKWH[i] - 1200) * 0.037 + (9.95 - 15);
             }
             else if (monthlyKWH[i] > 2000)
             {
-                currentTXU = monthlyKWH[i] * 0.077 - 15;
+                currentTXU = (1200 * 0.073) + (800 * 0.037) + (monthlyKWH[i] - 2000) * 0.077 + (9.95 - 15);
             }
 
             //Calculate the current TDU
@@ -137,8 +164,11 @@ int main()
 
         cout << "Total TXU : " << totalTXU << endl;
         cout << "Total TDU : " << totalTDU << endl;
-        cout << "Total Cost : " << totalTXU + totalTDU << endl << endl << endl;;
+        cout << "Total Cost : " << totalTXU + totalTDU << endl << endl << endl;
 
+        cout << "Enter data again for another bill calculculation!" << endl;
+
+        cin.clear();
         cin.ignore(100000, '\n');
     }
 }
