@@ -4,11 +4,6 @@
 
 using namespace std;
 
-void resetProgram()
-{
-
-}
-
 int main()
 {
 	string name = " ";
